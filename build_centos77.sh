@@ -1,3 +1,4 @@
 #!/bin/bash
+source .env
 
-docker build -t centos77 . -f centos77.Dockerfile
+$CONTAINER build -t centos77 . -f centos77.Dockerfile
