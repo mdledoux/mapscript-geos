@@ -20,14 +20,14 @@ wget http://download.osgeo.org/mapserver/mapserver-7.4.4.tar.gz
 tar xfz mapserver-7.4.4.tar.gz
 mkdir -p mapserver-7.4.4/build
 
-sed -i '/WITH_PHP / s/OFF/ON/g'        ./CMakeLists.txt
-sed -i '/WITH_PHPNG / s/OFF/ON/g'      ./CMakeLists.txt
-sed -i '/WITH_PROTOBUFC / s/ON/OFF/g'  ./CMakeLists.txt
+cd /mapserver-7.4.4/build
+sed -i '/WITH_PHP / s/OFF/ON/g'        ../CMakeLists.txt
+sed -i '/WITH_PHPNG / s/OFF/ON/g'      ../CMakeLists.txt
+sed -i '/WITH_PROTOBUFC / s/ON/OFF/g'  ../CMakeLists.txt
 #Set option WITH_PROTOBUFC to 'OFF'
 #Set option WITH_PHP to 'ON'
 #Set option WITH_PHPNG to 'ON'
 
-cd /mapserver-7.4.4/build
 #cmake ..   -DCMAKE_INSTALL_LIBDIR=lib
 cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64  &&  \
 	make  &&  \
