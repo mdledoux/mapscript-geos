@@ -43,6 +43,7 @@ This copies both RPM files - you can selectively copy one or the other by pickin
 docker run -it --rm --name php_mapscript -d centos77_php_mapscript
 docker cp php_mapscript:RPM .
 docker stop php_mapscript
+rpm -i RPM/mapscript-1-0.noarch.rpm
 ```
 
 ### php-geos
@@ -50,6 +51,7 @@ docker stop php_mapscript
 docker run -it --rm --name php_geos -d centos77_php_geos
 docker cp php_geos:RPM .
 docker stop php_geos
+rpm -i RPM/geos-1-0.noarch.rpm
 ```
 
 
