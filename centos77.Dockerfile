@@ -58,8 +58,53 @@ RUN make install
 WORKDIR /
 
 
+#RUN mkdir -p  build_rpm{/opt/rh/rh-php72/root/usr/lib64/php/modules/,/usr/local/lib,/etc/opt/rh/rh-php72/php.d/}   && \
+#	cp -p /opt/rh/rh-php72/root/usr/lib64/php/modules/geos.so   build_rpm/opt/rh/rh-php72/root/usr/lib64/php/modules/   && \
+#	cp -p /opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so   build_rpm/opt/rh/rh-php72/root/usr/lib64/php/modules/   && \
+#	cp -p /opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so   build_rpm/opt/rh/rh-php72/root/usr/lib64/php/modules/   && \
+#	cp -P /usr/local/lib/*libmapserver* build_rpm/usr/local/lib   && \
+#	echo "extension=php_mapscript.so" >  build_rpm/etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
+#	echo  >>  build_rpm/etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
+#	echo "extension=libphp_mapscriptng.so" >>  build_rpm/etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
+#	echo "extension=geos.so" >  build_rpm/etc/opt/rh/rh-php72/php.d/geos.ini  && \
+#	true;
+	
 
+RUN	echo "extension=php_mapscript.so" >  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
+	echo  >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
+	echo "extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
+	echo "extension=geos.so" >  /etc/opt/rh/rh-php72/php.d/geos.ini  && \
+	true;
+
+# yum -y install rpm-build rpm-devel  rpmdevtools coreutils
+RUN yum -y install rpm-build rpmdevtools #rpm-devel 
+#RUN rpmdev-setuptree  &&  rpmbuild
+RUN mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SRPMS,SOURCES,SPECS}
+WORKDIR /rpmbuild
+#VOLUME /rpmbuild
+RUN ls /rpmbuild
+ADD --chown=0:0  rpmbuild/ /rpmbuild
+RUN ls -lah  /rpmbuild
+RUN ls -lah  /rpmbuild/SPECS
+#ADD rpmbuild.tar.gz /
+#RUN tar xfz rpmbuild.tar.gz
+RUN	echo "%_unpackaged_files_terminate_build      0"  >>  /etc/rpm/macros    && \
+	echo "%_binaries_in_noarch_packages_terminate_build   0"   >>  /etc/rpm/macros
+RUN rpmbuild  -ba SPECS/mapscript-geos.spec
+RUN ls -lah /rpmbuild/RPMS
+RUN rpm -qlp RPMS/noarch/mapscript-geos-1-0.noarch.rpm
+
+WORKDIR /RPM
+RUN cp /rpmbuild/RPMS/noarch/* .
+
+
+
+
+
+
+WORKDIR /
 CMD /bin/bash
+
 
 
 
@@ -68,4 +113,11 @@ CMD /bin/bash
 
 ## ls /usr/local/lib
 #libmapserver.so  libmapserver.so.2  libmapserver.so.7.4.4
+
+## ls /etc/opt/rh/rh-php72/php.d/
+# mapscript.ini
+# geos.ini
+
+
+
 
