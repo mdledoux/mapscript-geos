@@ -6,7 +6,20 @@ cp SAMPLE.env .env
 
 
 ## CentOS7.7, PHP 7.2.24
-Build the **separate** images (for separate containers) for mapscript and geos:
+### TL;DR
+To simply build the image and create the two containers to copy both RPMs (for php-geos and php-mapscript), simply do the following:
+```bash
+./build_centos77.sh
+./run_centos77_and_copy_rpm_files.sh
+# cp RPM/* DESTINATION
+
+rpm -i geos-1-0.noarch.rpm
+rpm -i mapscript-1-0.noarch.rpm
+```
+
+
+### Let's break it down
+Build the *separate* images (for separate containers) for mapscript and geos:
 ```bash
 ./build_centos77.sh
 ```
@@ -18,6 +31,13 @@ docker build -t centos77_php_geos . -f centos77.Dockerfile  --target=php_geos
  
 
 This now supports multistage builds (2 stages)
+
+Then, to copy the RPM files to a local **./RPM** folder you can simply run:
+```bash
+./run_centos77_and_copy_rpm_files.sh
+```
+This copies both RPM files - you can selectively copy one or the other by picking one of the following approaches.
+
 ### php-mapscript
 ```bash
 docker run -it --rm --name php_mapscript -d centos77_php_mapscript
