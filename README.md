@@ -17,12 +17,21 @@ docker stop centos77
 ## Fedora 29, PHP 7.2.24
 ```bash
 ./build_fedora29.sh
+docker run -it --rm --name fedora29 -d fedora29
+docker cp fedora29:RPM   .
+docker stop fedora29
+```
+
+
+## Query contents of RPM
+```bash
+rpm -qlp RPMS/noarch/mapscript-geos-1-0.noarch.rpm
 ```
 
 
 
 
-# Building an RPM 
+# Notes about building an RPM in the recipe 
 
 ## Build process
 Because this RPM is shopping with 'so' files, the following error will coccur
@@ -42,10 +51,4 @@ Then you should be able to go on and build successfully:
 cd rpmbuild
 rpmbuild -ba SPECS/mapscript-geos.spec 
 ```
-
-## Query contents of RPM
-```bash
-rpm -qlp RPMS/noarch/mapscript-geos-1-0.noarch.rpm
-```
-
 
