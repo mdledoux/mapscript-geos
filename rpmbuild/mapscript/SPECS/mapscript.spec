@@ -1,7 +1,7 @@
-Name:           mapscript-geos
+Name:           mapscript
 Version:        1
 Release:        0
-Summary:        Add mapscript and geos to rh-php72 SCL
+Summary:        Add mapscript to rh-php72 SCL
 
 Group:          TecAdmin
 BuildArch:      noarch
@@ -25,9 +25,7 @@ An package consisting of two PHP modules:  geos and mapscript
 %install
 install -m 0755 -d $RPM_BUILD_ROOT/etc/opt/rh/rh-php72/php.d
 cp -r  /etc/opt/rh/rh-php72/php.d/mapscript.ini  $RPM_BUILD_ROOT/etc/opt/rh/rh-php72/php.d/
-cp -r /etc/opt/rh/rh-php72/php.d/geos.ini       $RPM_BUILD_ROOT/etc/opt/rh/rh-php72/php.d/
 install -m 0755 -d $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules
-cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/geos.so                $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/geos.so
 cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so  $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so
 cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so       $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so
 install -m 0755 -d $RPM_BUILD_ROOT/usr/local/lib
@@ -54,5 +52,5 @@ cp -rP /usr/local/lib/libmapserver.so.7.4.4   $RPM_BUILD_ROOT/usr/local/lib/libm
 
 
 %changelog
-* Tue Oct 24 2017 Rahul Kumar  1.0.0
+* Wed May 6 2020 Martin Ledoux  1.0.0
   - Initial rpm release

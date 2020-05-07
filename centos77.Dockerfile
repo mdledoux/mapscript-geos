@@ -27,10 +27,16 @@ RUN $PKG_MAN -y install cmake make gcc-c++   swig3 file    fcgi fcgi-devel \
 	rh-php72-php rh-php72-php-devel \
 	;
 
+RUN mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SRPMS,SOURCES,SPECS}
+RUN	echo "%_unpackaged_files_terminate_build      0"  >>  /etc/rpm/macros    && \
+	echo "%_binaries_in_noarch_packages_terminate_build   0"   >>  /etc/rpm/macros
 
 
 
-#FROM phpgeo_base AS mapscript
+#================================================================================
+
+
+FROM phpgeo_base AS php_mapscript
 #WORKDIR  /usr/lib64
 #RUN ln -s /opt/rh/rh-php72/root/usr/lib64/php
 WORKDIR  /usr/include
@@ -65,8 +71,36 @@ RUN	echo "extension=php_mapscript.so" >  /etc/opt/rh/rh-php72/php.d/mapscript.in
 	echo  >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
 	echo "extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini 
 
+#RUN rpmdev-setuptree  &&  rpmbuild
+WORKDIR /rpmbuild
+#VOLUME /rpmbuild
+RUN ls /rpmbuild
+ADD --chown=0:0  rpmbuild/mapscript /rpmbuild
+RUN ls -lah  /rpmbuild
+RUN ls -lah  /rpmbuild/SPECS
+
+RUN rpmbuild  -ba SPECS/mapscript.spec
+RUN ls -lah /rpmbuild/RPMS/noarch
+RUN rpm -qlp RPMS/noarch/mapscript-1-0.noarch.rpm
+
+WORKDIR /RPM
+RUN cp /rpmbuild/RPMS/noarch/* .
+
+WORKDIR /
+CMD /bin/bash
 
 
+
+
+
+
+#================================================================================
+
+
+
+
+
+FROM phpgeo_base AS php_geos
 WORKDIR /
 RUN git clone https://git.osgeo.org/gitea/geos/php-geos.git
 WORKDIR /php-geos
@@ -80,33 +114,19 @@ WORKDIR /
 RUN	echo "extension=geos.so" >  /etc/opt/rh/rh-php72/php.d/geos.ini 
 
 #RUN rpmdev-setuptree  &&  rpmbuild
-RUN mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SRPMS,SOURCES,SPECS}
 WORKDIR /rpmbuild
 #VOLUME /rpmbuild
 RUN ls /rpmbuild
-ADD --chown=0:0  rpmbuild/ /rpmbuild
+ADD --chown=0:0  rpmbuild/geos/ /rpmbuild
 RUN ls -lah  /rpmbuild
 RUN ls -lah  /rpmbuild/SPECS
 
-RUN	echo "%_unpackaged_files_terminate_build      0"  >>  /etc/rpm/macros    && \
-	echo "%_binaries_in_noarch_packages_terminate_build   0"   >>  /etc/rpm/macros
-
-
-
-
-
-RUN rpmbuild  -ba SPECS/mapscript-geos.spec
-RUN ls -lah /rpmbuild/RPMS
-RUN rpm -qlp RPMS/noarch/mapscript-geos-1-0.noarch.rpm
+RUN rpmbuild  -ba SPECS/geos.spec
+RUN ls -lah /rpmbuild/RPMS/noarch
+RUN rpm -qlp RPMS/noarch/geos-1-0.noarch.rpm
 
 WORKDIR /RPM
 RUN cp /rpmbuild/RPMS/noarch/* .
-
-
-
-
-
-
 
 WORKDIR /
 CMD /bin/bash

@@ -6,11 +6,30 @@ cp SAMPLE.env .env
 
 
 ## CentOS7.7, PHP 7.2.24
+Build the **separate** images (for separate containers) for mapscript and geos:
 ```bash
 ./build_centos77.sh
-docker run -it --rm --name centos77 -d centos77
-docker cp centos77:RPM   .
-docker stop centos77
+```
+This does:
+```bash
+docker build -t centos77_php_mapscript . -f centos77.Dockerfile  --target=php_mapscript
+docker build -t centos77_php_geos . -f centos77.Dockerfile  --target=php_geos
+```
+ 
+
+This now supports multistage builds (2 stages)
+### php-mapscript
+```bash
+docker run -it --rm --name php_mapscript -d centos77_php_mapscript
+docker cp php_mapscript:RPM .
+docker stop php_mapscript
+```
+
+### php-geos
+```bash
+docker run -it --rm --name php_geos -d centos77_php_geos
+docker cp php_geos:RPM .
+docker stop php_geos
 ```
 
 
