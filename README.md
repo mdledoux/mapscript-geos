@@ -13,8 +13,8 @@ To simply build the image and create the two containers to copy both RPMs (for p
 ./run_centos77_and_copy_rpm_files.sh
 # cp RPM/* DESTINATION
 
-rpm -i geos-1-0.noarch.rpm
-rpm -i mapscript-1-0.noarch.rpm
+rpm -i RPM/geos-1-0.noarch.rpm
+rpm -i RPM/mapscript-1-0.noarch.rpm
 ```
 
 
