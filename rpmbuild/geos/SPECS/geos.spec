@@ -8,6 +8,7 @@ BuildArch:      noarch
 License:        GPL
 URL:            https://repo-01.unh.edu/it-rcc/php-module-builds/mapscript-geos
 #Source0:	
+Requires: rh-php72-php = 7.2.24
 
 %description
 An package consisting of two PHP modules:  geos and mapscript

@@ -11,6 +11,7 @@ URL:            https://repo-01.unh.edu/it-rcc/php-module-builds/mapscript-geos
 #Requires(preun):  helloworld1
 #Requires: abcd = 1425-a.x86_64
 Requires: libmapserver = 7.4.4-0
+Requires: rh-php72-php = 7.2.24
 
 %description
 An package consisting of two PHP modules:  geos and mapscript
