@@ -1,4 +1,5 @@
 FROM centos:centos7.7.1908 as phpgeo_base
+#FROM centos:centos7.8.2003 as phpgeo_base
 #FROM centos:centos8.1.1911 as phpgeo_base
 LABEL maintainer="martin.ledoux@unh.edu"
 ENV PKG_MAN=yum
