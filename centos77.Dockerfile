@@ -76,12 +76,14 @@ WORKDIR /rpmbuild
 #VOLUME /rpmbuild
 RUN ls /rpmbuild
 ADD --chown=0:0  rpmbuild/mapscript /rpmbuild
-RUN ls -lah  /rpmbuild
-RUN ls -lah  /rpmbuild/SPECS
+ADD --chown=0:0  rpmbuild/libmapserver /rpmbuild
+
+RUN rpmbuild  -ba SPECS/libmapserver.spec
+RUN rpm -qlp RPMS/noarch/libmapserver-7.4.4-0.noarch.rpm
 
 RUN rpmbuild  -ba SPECS/mapscript.spec
-RUN ls -lah /rpmbuild/RPMS/noarch
-RUN rpm -qlp RPMS/noarch/mapscript-1-0.noarch.rpm
+RUN rpm -qlp RPMS/noarch/php-mapscript-7.4.4-7.2.24.noarch.rpm
+
 
 WORKDIR /RPM
 RUN cp /rpmbuild/RPMS/noarch/* .
@@ -123,7 +125,7 @@ RUN ls -lah  /rpmbuild/SPECS
 
 RUN rpmbuild  -ba SPECS/geos.spec
 RUN ls -lah /rpmbuild/RPMS/noarch
-RUN rpm -qlp RPMS/noarch/geos-1-0.noarch.rpm
+RUN rpm -qlp RPMS/noarch/php-geos-3.4.2-7.2.24.noarch.rpm
 
 WORKDIR /RPM
 RUN cp /rpmbuild/RPMS/noarch/* .

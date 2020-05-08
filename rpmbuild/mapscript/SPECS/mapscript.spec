@@ -1,6 +1,6 @@
 Name:           mapscript
-Version:        1
-Release:        0
+Version:        7.4.4
+Release:        7.2.24
 Summary:        Add mapscript to rh-php72 SCL
 
 Group:          TecAdmin
@@ -28,10 +28,6 @@ cp -r  /etc/opt/rh/rh-php72/php.d/mapscript.ini  $RPM_BUILD_ROOT/etc/opt/rh/rh-p
 install -m 0755 -d $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules
 cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so  $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so
 cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so       $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so
-install -m 0755 -d $RPM_BUILD_ROOT/usr/local/lib
-cp -rP /usr/local/lib/libmapserver.so         $RPM_BUILD_ROOT/usr/local/lib/libmapserver.so
-cp -rP /usr/local/lib/libmapserver.so.2       $RPM_BUILD_ROOT/usr/local/lib/libmapserver.so.2
-cp -rP /usr/local/lib/libmapserver.so.7.4.4   $RPM_BUILD_ROOT/usr/local/lib/libmapserver.so.7.4.4
 
 
 %files
@@ -42,10 +38,6 @@ cp -rP /usr/local/lib/libmapserver.so.7.4.4   $RPM_BUILD_ROOT/usr/local/lib/libm
 #/opt/rh/rh-php72/root/usr/lib64/php/modules/geos.so
 #/opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so
 #/opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so
-/usr/local/lib/
-#/usr/local/lib/libmapserver.so
-#/usr/local/lib/libmapserver.so.2
-#/usr/local/lib/libmapserver.so.7.4.4
 
 
 

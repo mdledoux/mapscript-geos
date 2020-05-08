@@ -1,6 +1,6 @@
 Name:           geos
-Version:        1
-Release:        0
+Version:        3.4.2
+Release:        7.2.24
 Summary:        Add geos to rh-php72 SCL
 
 Group:          TecAdmin
