@@ -28,6 +28,7 @@ RUN $PKG_MAN -y install cmake make gcc-c++   swig3 file    fcgi fcgi-devel \
 	;
 
 RUN mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SRPMS,SOURCES,SPECS}
+# This macro allows binary libraries (.so files) to be packaged into an RPM
 RUN	echo "%_unpackaged_files_terminate_build      0"  >>  /etc/rpm/macros    && \
 	echo "%_binaries_in_noarch_packages_terminate_build   0"   >>  /etc/rpm/macros
 
