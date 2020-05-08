@@ -11,6 +11,7 @@ $PKG_MAN install cmake make gcc-c++   swig file    fcgi fcgi-devel php-pecl-pq \
 	libxml2 libxml2-devel  zlib zlib-devel  libjpeg-turbo-devel freetype-devel giflib-devel libpng-devel \
 	fribidi fribidi-devel  harfbuzz harfbuzz-devel  cairo cairo-devel protobuf protobuf-c protobuf-devel protobuf-c-compiler \
 	proj proj-epsg proj-devel  geos geos-devel   postgis postgis-devel postgresql-devel  gdal gdal-libs gdal-devel \
+	php-pecl-pq \
 	php-geos \
 	php php-devel \
 	;

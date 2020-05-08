@@ -7,10 +7,11 @@ yum-config-manager --enable centos-sclo-rh
 
 
 
-$PKG_MAN -y install cmake make gcc-c++   swig3 file    fcgi fcgi-devel php-pecl-pq \
+$PKG_MAN -y install cmake make gcc-c++   swig3 file    fcgi fcgi-devel \
 	libxml2 libxml2-devel  zlib zlib-devel  libjpeg-turbo-devel freetype-devel giflib-devel libpng-devel \
 	fribidi fribidi-devel  harfbuzz harfbuzz-devel  cairo cairo-devel protobuf protobuf-c protobuf-devel protobuf-c-compiler \
 	proj proj-epsg proj-devel  geos geos-devel   postgis postgis-devel postgresql-devel  gdal gdal-libs gdal-devel \
+	#php-pecl-pq \
 	#php-geos \
 	rh-php72-php rh-php72-php-devel \
 	;
