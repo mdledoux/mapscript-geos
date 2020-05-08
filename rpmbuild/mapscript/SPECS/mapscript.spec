@@ -1,4 +1,4 @@
-Name:           mapscript
+Name:           php-mapscript
 Version:        7.4.4
 Release:        7.2.24
 Summary:        Add mapscript to rh-php72 SCL
@@ -8,12 +8,15 @@ BuildArch:      noarch
 License:        GPL
 URL:            https://repo-01.unh.edu/it-rcc/php-module-builds/mapscript-geos
 #Source0:	
+#Requires(preun):  helloworld1
+#Requires: abcd = 1425-a.x86_64
+Requires: libmapserver = 7.4.4-0
 
 %description
 An package consisting of two PHP modules:  geos and mapscript
 
 %define _rpmdir /rpmbuild/RPMS
-#%define _srpmdir /rpmbuild/RPMS
+%define _srpmdir /rpmbuild/SRPMS
 
 
 #%prep

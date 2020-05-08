@@ -1,13 +1,16 @@
 #!/bin/bash
+source .env
 
-docker run -it --rm --name php_mapscript -d centos77_php_mapscript
-docker run -it --rm --name php_geos -d centos77_php_geos
-
-
-docker cp php_geos:RPM .
-docker cp php_mapscript:RPM .
+echo STARTING CONTAINERS
+$CONTAINER run -it --rm --name php_mapscript -d centos77_php_mapscript
+$CONTAINER run -it --rm --name php_geos -d centos77_php_geos
 
 
-docker stop php_geos
-docker stop php_mapscript
+echo COPYING FILES
+$CONTAINER cp php_geos:RPM .
+$CONTAINER cp php_mapscript:RPM .
+
+echo STOPPING CONTAINERS
+$CONTAINER stop php_geos
+$CONTAINER stop php_mapscript
 

@@ -1,4 +1,4 @@
-Name:           geos
+Name:           php-geos
 Version:        3.4.2
 Release:        7.2.24
 Summary:        Add geos to rh-php72 SCL
@@ -13,7 +13,7 @@ URL:            https://repo-01.unh.edu/it-rcc/php-module-builds/mapscript-geos
 An package consisting of two PHP modules:  geos and mapscript
 
 %define _rpmdir /rpmbuild/RPMS
-#%define _srpmdir /rpmbuild/RPMS
+%define _srpmdir /rpmbuild/SRPMS
 
 
 #%prep

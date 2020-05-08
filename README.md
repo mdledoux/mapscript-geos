@@ -43,7 +43,10 @@ This copies both RPM files - you can selectively copy one or the other by pickin
 docker run -it --rm --name php_mapscript -d centos77_php_mapscript
 docker cp php_mapscript:RPM .
 docker stop php_mapscript
-rpm -i RPM/mapscript-1-0.noarch.rpm
+# IN THIS ORDER:
+rpm -i  RPM/libmapserver-7.4.4-0.noarch.rpm   &&  rpm -i RPM/php-mapscript-7.4.4-7.2.24.noarch.rpm 
+# OR this instead:
+yum -y install  RPM/php-mapscript-7.4.4-7.2.24.noarch.rpm  RPM/libmapserver-7.4.4-0.noarch.rpm 
 ```
 
 ### php-geos
@@ -51,7 +54,10 @@ rpm -i RPM/mapscript-1-0.noarch.rpm
 docker run -it --rm --name php_geos -d centos77_php_geos
 docker cp php_geos:RPM .
 docker stop php_geos
-rpm -i RPM/geos-1-0.noarch.rpm
+# Install the single module:
+rpm -i  RPM/php-geos-3.4.2-7.2.24.noarch.rpm
+# OR this instead:
+yum -y install  RPM/php-geos-3.4.2-7.2.24.noarch.rpm
 ```
 
 

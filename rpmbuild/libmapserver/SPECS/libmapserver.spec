@@ -1,4 +1,4 @@
-Name:           mapscript
+Name:           libmapserver
 Version:        7.4.4
 Release:        0
 Summary:        libmapserver required for php-mapscript

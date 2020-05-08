@@ -73,8 +73,6 @@ RUN	echo "extension=php_mapscript.so" >  /etc/opt/rh/rh-php72/php.d/mapscript.in
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild
-#VOLUME /rpmbuild
-RUN ls /rpmbuild
 ADD --chown=0:0  rpmbuild/mapscript /rpmbuild
 ADD --chown=0:0  rpmbuild/libmapserver /rpmbuild
 
@@ -83,6 +81,7 @@ RUN rpm -qlp RPMS/noarch/libmapserver-7.4.4-0.noarch.rpm
 
 RUN rpmbuild  -ba SPECS/mapscript.spec
 RUN rpm -qlp RPMS/noarch/php-mapscript-7.4.4-7.2.24.noarch.rpm
+#RUN ls -lah /rpmbuild/RPMS/noarch
 
 
 WORKDIR /RPM
@@ -117,14 +116,10 @@ RUN	echo "extension=geos.so" >  /etc/opt/rh/rh-php72/php.d/geos.ini
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild
-#VOLUME /rpmbuild
-RUN ls /rpmbuild
 ADD --chown=0:0  rpmbuild/geos/ /rpmbuild
-RUN ls -lah  /rpmbuild
-RUN ls -lah  /rpmbuild/SPECS
 
 RUN rpmbuild  -ba SPECS/geos.spec
-RUN ls -lah /rpmbuild/RPMS/noarch
+#RUN ls -lah /rpmbuild/RPMS/noarch
 RUN rpm -qlp RPMS/noarch/php-geos-3.4.2-7.2.24.noarch.rpm
 
 WORKDIR /RPM
