@@ -11,10 +11,14 @@ To simply build the image and create the two containers to copy both RPMs (for p
 ```bash
 ./build_centos77.sh
 ./run_centos77_and_copy_rpm_files.sh
+# Then sinmply put the resulting RPM files where you need them:
 # cp RPM/* DESTINATION
 
-rpm -i RPM/geos-1-0.noarch.rpm
-rpm -i RPM/mapscript-1-0.noarch.rpm
+# Now install the PHP exensions...
+# MapScript (with the MapServer library):
+yum -y install  RPM/libmapserver-7.4.4-0.noarch.rpm  RPM/php-mapscript-7.4.4-7.2.24.noarch.rpm
+# GEOS
+yum -y install  RPM/php-geos-3.4.2-7.2.24.noarch.rpm
 ```
 
 
