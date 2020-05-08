@@ -1,4 +1,5 @@
 FROM centos:centos7.7.1908 as phpgeo_base
+#FROM centos:centos8.1.1911 as phpgeo_base
 LABEL maintainer="martin.ledoux@unh.edu"
 ENV PKG_MAN=yum
 
@@ -34,9 +35,12 @@ RUN	echo "%_unpackaged_files_terminate_build      0"  >>  /etc/rpm/macros    && 
 
 
 
+
+
+
 #================================================================================
-
-
+# build the MapScript library, including php-mapscript and an RPM for each
+#================================================================================
 FROM phpgeo_base AS php_mapscript
 #WORKDIR  /usr/lib64
 #RUN ln -s /opt/rh/rh-php72/root/usr/lib64/php
@@ -97,11 +101,8 @@ CMD /bin/bash
 
 
 #================================================================================
-
-
-
-
-
+# build php-geos and an RPM for each
+#================================================================================
 FROM phpgeo_base AS php_geos
 WORKDIR /
 RUN git clone https://git.osgeo.org/gitea/geos/php-geos.git
