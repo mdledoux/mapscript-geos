@@ -1,5 +1,5 @@
-FROM centos:centos7.7.1908 as phpgeo_base
-#FROM centos:centos7.8.2003 as phpgeo_base
+#FROM centos:centos7.7.1908 as phpgeo_base
+FROM centos:centos7.8.2003 as phpgeo_base
 #FROM centos:centos8.1.1911 as phpgeo_base
 LABEL maintainer="martin.ledoux@unh.edu"
 ENV PKG_MAN=yum
@@ -26,6 +26,7 @@ RUN $PKG_MAN -y install cmake make gcc-c++   swig3 file    fcgi fcgi-devel \
 	rpm-build rpmdevtools \
 #	php-geos \
 #	php-pecl-pq \
+#	php php-devel \
 	rh-php72-php rh-php72-php-devel \
 	;
 
