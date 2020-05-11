@@ -74,11 +74,11 @@ RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64   -DPHP_EXTENSION_DIR=/opt/rh/rh-php
 # -- Will install libraries to /usr/local/lib
 
 WORKDIR /
-RUN	echo "extension=php_mapscript.so" >  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
-	echo  >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
-	echo "; this is for SWIG-only, and requires a php file from ms4w.  php_mapscript supports old way and SWIG, no php include"  && \
-	echo  >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini  && \
-	echo "; extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php72/php.d/mapscript.ini 
+RUN	echo "extension=php_mapscript.so" >  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini  && \
+	echo  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini  && \
+	echo "; this is for SWIG-only, and requires a php file from ms4w.  php_mapscript supports old way and SWIG, no php include"  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini  && \
+	echo  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini  && \
+	echo "; extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild
@@ -118,7 +118,7 @@ RUN ./autogen.sh  && \
 RUN make install
 
 WORKDIR /
-RUN	echo "extension=geos.so" >  /etc/opt/rh/rh-php72/php.d/geos.ini 
+RUN	echo "extension=geos.so" >  /etc/opt/rh/rh-php72/php.d/40-geos.ini 
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild

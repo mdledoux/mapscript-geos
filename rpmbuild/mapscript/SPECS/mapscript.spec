@@ -28,7 +28,7 @@ An package consisting of two PHP modules:  geos and mapscript
 %build
 %install
 install -m 0755 -d $RPM_BUILD_ROOT/etc/opt/rh/rh-php72/php.d
-cp -r  /etc/opt/rh/rh-php72/php.d/mapscript.ini  $RPM_BUILD_ROOT/etc/opt/rh/rh-php72/php.d/
+cp -r  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini  $RPM_BUILD_ROOT/etc/opt/rh/rh-php72/php.d/
 install -m 0755 -d $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules
 cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so  $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/libphp_mapscriptng.so
 cp -rP /opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so       $RPM_BUILD_ROOT/opt/rh/rh-php72/root/usr/lib64/php/modules/php_mapscript.so
