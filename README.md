@@ -5,7 +5,7 @@ cp SAMPLE.env .env
 ```
 
 
-## CentOS7.7, PHP 7.2.24
+## CentOS7.8 PHP 7.2.24 (rh-php72 SCL)
 ### TL;DR
 To simply build the image and create the two containers to copy both RPMs (for php-geos and php-mapscript), simply do the following:
 ```bash
