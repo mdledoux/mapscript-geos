@@ -74,11 +74,10 @@ RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64   -DPHP_EXTENSION_DIR=/opt/rh/rh-php
 # -- Will install libraries to /usr/local/lib
 
 WORKDIR /
-RUN	echo "\
-; this first option provides the old php-mapscript, and the new SWIG API, but doesn't require a file-include from ms4w \
-extension=php_mapscript.so \
-; this is for SWIG-only, and requires a php file from ms4w.  php_mapscript supports old way and SWIG, no php include \
-; extension=libphp_mapscriptng.so" >  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
+RUN echo "; this first option provides the old php-mapscript, and the new SWIG API, but doesn't require a file-include from ms4w"  >  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
+RUN echo "extension=php_mapscript.so"  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
+RUN echo "; this is for SWIG-only, and requires a php file from ms4w.  php_mapscript supports old way and SWIG, no php include"  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini
+RUN echo "; extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild
