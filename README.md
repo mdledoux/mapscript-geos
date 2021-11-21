@@ -2,13 +2,19 @@
 ## Support
 Forked users (e.g., UNH): for upstream support, find this repo maintained at:
 https://github.com/mdledoux/mapscript-geos
-```
+```bash
 git clone git@github.com:mdledoux/mapscript-geos.git
 ```
-or add to an existing repo:
+or add *another remote* to an existing repo - call it "github":
+```bash
+git remote add github git@github.com:mdledoux/mapscript-geos.git
 ```
-git remote add origin git@github.com:mdledoux/mapscript-geos.git
+then you can update your local copy, and even the copy in GitLab with:
+```bash
+git pull github   # pull from GitHub
+git push          # push latest changes to GitLab
 ```
+
 
 
 ## Getting started
