@@ -1,4 +1,18 @@
 # Build php-mapscript and php-geos
+## Support
+Forked users (e.g., UNH): for upstream support, find this repo maintained at:
+https://github.com/mdledoux/mapscript-geos
+```
+git clone git@github.com:mdledoux/mapscript-geos.git
+```
+or add to an existing repo:
+```
+git remote add origin git@github.com:mdledoux/mapscript-geos.git
+```
+
+
+## Getting started
+
 First, copy the SAMPLE.env file to .env, and pick your container engine (e.g., docker, podman,...)
 ```bash
 cp SAMPLE.env .env
