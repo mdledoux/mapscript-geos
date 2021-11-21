@@ -91,14 +91,10 @@ RUN rpmbuild  -ba SPECS/mapscript.spec
 RUN rpm -qlp RPMS/noarch/php-mapscript-7.4.4-7.2.24.noarch.rpm
 #RUN ls -lah /rpmbuild/RPMS/noarch
 
-
-WORKDIR /RPM
-RUN cp /rpmbuild/RPMS/noarch/* .
-
-WORKDIR /
-CMD /bin/bash
-
-
+ARG UID=1000
+#USER $UID
+WORKDIR /RPMs
+CMD cp /rpmbuild/RPMS/noarch/* .
 
 
 
@@ -127,11 +123,9 @@ RUN rpmbuild  -ba SPECS/geos.spec
 #RUN ls -lah /rpmbuild/RPMS/noarch
 RUN rpm -qlp RPMS/noarch/php-geos-3.4.2-7.2.24.noarch.rpm
 
-WORKDIR /RPM
-RUN cp /rpmbuild/RPMS/noarch/* .
-
-WORKDIR /
-CMD /bin/bash
-
+ARG UID=1000
+#USER $UID
+WORKDIR /RPMs
+CMD cp /rpmbuild/RPMS/noarch/* .
 
 
