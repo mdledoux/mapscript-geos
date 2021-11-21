@@ -9,8 +9,8 @@ cp SAMPLE.env .env
 ### TL;DR
 To simply build the image and create the two containers to copy both RPMs (for php-geos and php-mapscript), simply do the following:
 ```bash
-./build_centos77.sh
-./run_centos77_and_copy_rpm_files.sh
+./build_centos78.sh
+./run_centos78_and_copy_rpm_files.sh
 # Then sinmply put the resulting RPM files where you need them:
 # cp RPM/* DESTINATION
 
@@ -25,12 +25,12 @@ yum -y install  RPM/php-geos-3.4.2-7.2.24.noarch.rpm
 ### Let's break it down
 Build the *separate* images (for separate containers) for mapscript and geos:
 ```bash
-./build_centos77.sh
+./build_centos78.sh
 ```
 This does:
 ```bash
-docker build -t centos77_php_mapscript . -f centos77.Dockerfile  --target=php_mapscript
-docker build -t centos77_php_geos . -f centos77.Dockerfile  --target=php_geos
+docker build -t centos78_php_mapscript . -f centos78.Dockerfile  --target=php_mapscript
+docker build -t centos78_php_geos . -f centos78.Dockerfile  --target=php_geos
 ```
  
 
@@ -38,13 +38,13 @@ This now supports multistage builds (2 stages)
 
 Then, to copy the RPM files to a local **./RPMs** folder you can simply run:
 ```bash
-./run_centos77_and_copy_rpm_files.sh
+./run_centos78_and_copy_rpm_files.sh
 ```
 This copies all 3 RPM (2 for MapScript and 1 for GEOS) files - you can selectively copy one or the other by picking one of the following approaches.
 
 ### php-mapscript
 ```bash
-docker run -it --rm --name php_mapscript  -v $PWD/RPMs:/RPMs  centos77_php_mapscript
+docker run -it --rm --name php_mapscript  -v $PWD/RPMs:/RPMs  centos78_php_mapscript
 # IN THIS ORDER:
 rpm -i  RPMs/libmapserver-7.4.4-0.noarch.rpm   &&  rpm -i RPMs/php-mapscript-7.4.4-7.2.24.noarch.rpm 
 # OR this instead:
@@ -53,7 +53,7 @@ yum -y install  RPMs/php-mapscript-7.4.4-7.2.24.noarch.rpm  RPMs/libmapserver-7.
 
 ### php-geos
 ```bash
-docker run -it --rm --name php_geos  -v $PWD/RPMs:/RPMs   centos77_php_geos
+docker run -it --rm --name php_geos  -v $PWD/RPMs:/RPMs   centos78_php_geos
 # Install the single module:
 rpm -i  RPMs/php-geos-3.4.2-7.2.24.noarch.rpm
 # OR this instead:
