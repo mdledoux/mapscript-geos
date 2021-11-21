@@ -1,4 +1,5 @@
 #!/bin/bash
 source .env
 
-docker build -t fedora29 . -f fedora29.Dockerfile
+$CONTAINER_ENGINE build -t fedora29 . -f fedora29.Dockerfile
+ECHO "THIS Dockerfile DOES NOT YET EXIST!!!  Migrate it from ./fedpra29.setup.sh"

@@ -36,47 +36,42 @@ docker build -t centos77_php_geos . -f centos77.Dockerfile  --target=php_geos
 
 This now supports multistage builds (2 stages)
 
-Then, to copy the RPM files to a local **./RPM** folder you can simply run:
+Then, to copy the RPM files to a local **./RPMs** folder you can simply run:
 ```bash
 ./run_centos77_and_copy_rpm_files.sh
 ```
-This copies both RPM files - you can selectively copy one or the other by picking one of the following approaches.
+This copies all 3 RPM (2 for MapScript and 1 for GEOS) files - you can selectively copy one or the other by picking one of the following approaches.
 
 ### php-mapscript
 ```bash
-docker run -it --rm --name php_mapscript -d centos77_php_mapscript
-docker cp php_mapscript:RPM .
-docker stop php_mapscript
+docker run -it --rm --name php_mapscript  -v $PWD/RPMs:/RPMs  centos77_php_mapscript
 # IN THIS ORDER:
-rpm -i  RPM/libmapserver-7.4.4-0.noarch.rpm   &&  rpm -i RPM/php-mapscript-7.4.4-7.2.24.noarch.rpm 
+rpm -i  RPMs/libmapserver-7.4.4-0.noarch.rpm   &&  rpm -i RPMs/php-mapscript-7.4.4-7.2.24.noarch.rpm 
 # OR this instead:
-yum -y install  RPM/php-mapscript-7.4.4-7.2.24.noarch.rpm  RPM/libmapserver-7.4.4-0.noarch.rpm 
+yum -y install  RPMs/php-mapscript-7.4.4-7.2.24.noarch.rpm  RPMs/libmapserver-7.4.4-0.noarch.rpm 
 ```
 
 ### php-geos
 ```bash
-docker run -it --rm --name php_geos -d centos77_php_geos
-docker cp php_geos:RPM .
-docker stop php_geos
+docker run -it --rm --name php_geos  -v $PWD/RPMs:/RPMs   centos77_php_geos
 # Install the single module:
-rpm -i  RPM/php-geos-3.4.2-7.2.24.noarch.rpm
+rpm -i  RPMs/php-geos-3.4.2-7.2.24.noarch.rpm
 # OR this instead:
-yum -y install  RPM/php-geos-3.4.2-7.2.24.noarch.rpm
+yum -y install  RPMs/php-geos-3.4.2-7.2.24.noarch.rpm
 ```
 
 
 ## Fedora 29, PHP 7.2.24
+**NOTE:  `fedora29.Dockerfile` does not yet exist**
 ```bash
 ./build_fedora29.sh
-docker run -it --rm --name fedora29 -d fedora29
-docker cp fedora29:RPM   .
-docker stop fedora29
+docker run -it --rm --name fedora29  -v $PWD/RPMs:/RPMs   fedora29
 ```
 
 
 ## Query contents of RPM
 ```bash
-rpm -qlp RPMS/noarch/mapscript-geos-1-0.noarch.rpm
+rpm -qlp RPMs/mapscript-geos-1-0.noarch.rpm
 ```
 
 
