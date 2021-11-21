@@ -4,13 +4,13 @@ FROM centos:centos7.8.2003 as phpgeo_base
 LABEL maintainer="martin.ledoux@unh.edu"
 ENV PKG_MAN=yum
 
-## ls /opt/rh/rh-php72/root/usr/lib64/php/modules/
+## ls /opt/rh/rh-php${PHP_SCL_VER_TAG}/root/usr/lib64/php/modules/
 #geos.so  libphp_mapscriptng.so  php_mapscript.so
 
 ## ls /usr/local/lib
-#libmapserver.so  libmapserver.so.2  libmapserver.so.7.4.4
+#libmapserver.so  libmapserver.so.2  libmapserver.so.${MAPSERVER_VER}
 
-## ls /etc/opt/rh/rh-php72/php.d/
+## ls /etc/opt/rh/rh-php${PHP_SCL_VER_TAG}/php.d/
 # mapscript.ini
 # geos.ini
 
@@ -27,7 +27,7 @@ RUN $PKG_MAN -y install cmake make gcc-c++   swig3 file    fcgi fcgi-devel \
 #	php-geos \
 #	php-pecl-pq \
 #	php php-devel \
-	rh-php72-php rh-php72-php-devel \
+	rh-php${PHP_SCL_VER_TAG}-php rh-php${PHP_SCL_VER_TAG}-php-devel \
 	;
 
 RUN mkdir -p rpmbuild/{BUILD,BUILDROOT,RPMS,SRPMS,SOURCES,SPECS}
@@ -45,17 +45,17 @@ RUN	echo "%_unpackaged_files_terminate_build      0"  >>  /etc/rpm/macros    && 
 #================================================================================
 FROM phpgeo_base AS php_mapscript
 #WORKDIR  /usr/lib64
-#RUN ln -s /opt/rh/rh-php72/root/usr/lib64/php
+#RUN ln -s /opt/rh/rh-php${PHP_SCL_VER_TAG}/root/usr/lib64/php
 WORKDIR  /usr/include
-RUN ln -s /opt/rh/rh-php72/root/usr/include/php
+RUN ln -s /opt/rh/rh-php${PHP_SCL_VER_TAG}/root/usr/include/php
 
 
 WORKDIR /
-RUN wget http://download.osgeo.org/mapserver/mapserver-7.4.4.tar.gz && \
-	tar xfz mapserver-7.4.4.tar.gz && \
-	mkdir -p mapserver-7.4.4/build 
+RUN wget http://download.osgeo.org/mapserver/mapserver-${MAPSERVER_VER}.tar.gz && \
+	tar xfz mapserver-${MAPSERVER_VER}.tar.gz && \
+	mkdir -p mapserver-${MAPSERVER_VER}/build 
 
-WORKDIR /mapserver-7.4.4/build
+WORKDIR /mapserver-${MAPSERVER_VER}/build
 RUN sed -i '/WITH_PHP / s/OFF/ON/g'        ../CMakeLists.txt      && \
 	sed -i '/WITH_PHPNG / s/OFF/ON/g'      ../CMakeLists.txt  && \
 	sed -i '/WITH_PROTOBUFC / s/ON/OFF/g'  ../CMakeLists.txt
@@ -66,7 +66,7 @@ RUN sed -i '/WITH_PHP / s/OFF/ON/g'        ../CMakeLists.txt      && \
 
 #RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib    &&  \
 #RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64  &&  \
-RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64   -DPHP_EXTENSION_DIR=/opt/rh/rh-php72/root/usr/lib64/php/modules     &&  \
+RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64   -DPHP_EXTENSION_DIR=/opt/rh/rh-php${PHP_SCL_VER_TAG}/root/usr/lib64/php/modules     &&  \
 	make  &&  \
 	make install && \
 	true;
@@ -74,10 +74,10 @@ RUN cmake ..   -DCMAKE_INSTALL_LIBDIR=lib64   -DPHP_EXTENSION_DIR=/opt/rh/rh-php
 # -- Will install libraries to /usr/local/lib
 
 WORKDIR /
-RUN echo "; this first option provides the old php-mapscript, and the new SWIG API, but doesn't require a file-include from ms4w"  >  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
-RUN echo "extension=php_mapscript.so"  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
-RUN echo "; this is for SWIG-only, and requires a php file from ms4w.  php_mapscript supports old way and SWIG, no php include"  >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini
-RUN echo "; extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php72/php.d/40-mapscript.ini 
+RUN echo "; this first option provides the old php-mapscript, and the new SWIG API, but doesn't require a file-include from ms4w"  >  /etc/opt/rh/rh-php${PHP_SCL_VER_TAG}/php.d/40-mapscript.ini 
+RUN echo "extension=php_mapscript.so"  >>  /etc/opt/rh/rh-php${PHP_SCL_VER_TAG}/php.d/40-mapscript.ini 
+RUN echo "; this is for SWIG-only, and requires a php file from ms4w.  php_mapscript supports old way and SWIG, no php include"  >>  /etc/opt/rh/rh-php${PHP_SCL_VER_TAG}/php.d/40-mapscript.ini
+RUN echo "; extension=libphp_mapscriptng.so" >>  /etc/opt/rh/rh-php${PHP_SCL_VER_TAG}/php.d/40-mapscript.ini 
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild
@@ -85,10 +85,10 @@ ADD --chown=0:0  rpmbuild/mapscript /rpmbuild
 ADD --chown=0:0  rpmbuild/libmapserver /rpmbuild
 
 RUN rpmbuild  -ba SPECS/libmapserver.spec
-RUN rpm -qlp RPMS/noarch/libmapserver-7.4.4-0.noarch.rpm
+RUN rpm -qlp RPMS/noarch/libmapserver-${MAPSERVER_VER}-0.noarch.rpm
 
 RUN rpmbuild  -ba SPECS/mapscript.spec
-RUN rpm -qlp RPMS/noarch/php-mapscript-7.4.4-7.2.24.noarch.rpm
+RUN rpm -qlp RPMS/noarch/php-mapscript-${MAPSERVER_VER}-${PHP_VER}.noarch.rpm
 #RUN ls -lah /rpmbuild/RPMS/noarch
 
 ARG UID=1000
@@ -106,14 +106,14 @@ FROM phpgeo_base AS php_geos
 WORKDIR /
 RUN git clone https://git.osgeo.org/gitea/geos/php-geos.git
 WORKDIR /php-geos
-ENV PATH=/opt/rh/rh-php72/root/bin/:$PATH
+ENV PATH=/opt/rh/rh-php${PHP_SCL_VER_TAG}/root/bin/:$PATH
 RUN ./autogen.sh  && \
 	./configure  && \
 	make # generates modules/geos.so
 RUN make install
 
 WORKDIR /
-RUN	echo "extension=geos.so" >  /etc/opt/rh/rh-php72/php.d/40-geos.ini 
+RUN	echo "extension=geos.so" >  /etc/opt/rh/rh-php${PHP_SCL_VER_TAG}/php.d/40-geos.ini 
 
 #RUN rpmdev-setuptree  &&  rpmbuild
 WORKDIR /rpmbuild
@@ -121,7 +121,7 @@ ADD --chown=0:0  rpmbuild/geos/ /rpmbuild
 
 RUN rpmbuild  -ba SPECS/geos.spec
 #RUN ls -lah /rpmbuild/RPMS/noarch
-RUN rpm -qlp RPMS/noarch/php-geos-3.4.2-7.2.24.noarch.rpm
+RUN rpm -qlp RPMS/noarch/php-geos-${GEOS_VER}-${PHP_VER}.noarch.rpm
 
 ARG UID=1000
 #USER $UID
