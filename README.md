@@ -15,6 +15,8 @@ git pull github   # pull from GitHub
 git push          # push latest changes to GitLab
 ```
 
+UNH folks:  Feel free to open a Pull-Request on GitHub - it would be great to continue collaborating in the open-source community!
+
 
 
 ## Getting started
